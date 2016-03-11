@@ -130,6 +130,7 @@ function switchPath(sourcePath, routes) {
       continue
     }
     validatePatternPreconditions(pattern)
+    const params = matchesWithParams(sourcePath, pattern)
     if (params.length > 0 && betterMatch(sourcePath, matchedPath)) {
       const x = splitPath(sourcePath)
       matchedPath = [x[0], x[1], x[2]].join(`/`)
@@ -139,7 +140,6 @@ function switchPath(sourcePath, routes) {
     //   matchedPath = pattern
     //   value = routes[pattern]
     // }
-    const params = matchesWithParams(sourcePath, pattern)
     if (params.length > 0 && betterMatch(sourcePath, matchedPath)) {
       matchedPath = sourcePath
       value = getParamsFnValue(routes[pattern], params)
