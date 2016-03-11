@@ -68,6 +68,14 @@ describe('switchPath basic usage', () => {
     expect(value).to.be.equal(null);
   });
 
+  it('should not gobble rest of path in case of param matching', () => {
+    const {path, value} = switchPath('/books/33/moar', {
+      '/books/:id': id => `id is ${id}`,
+    });
+    expect(path).to.be.equal('/books/33');
+    expect(value).to.be.equal('id is 33');
+  });
+
   it('should return match to a notFound pattern if provided', () => {
     const {path, value} = switchPath('/home/33/books/10', {
       '/': 123,
